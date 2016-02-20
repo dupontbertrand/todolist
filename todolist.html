@@ -26,12 +26,18 @@
 
            </label>
 
-           <form class="new-task">
+           {{> loginButtons}}
 
-             <input type="text" name="text" placeholder="Type to add new tasks" />
 
-           </form>
+           {{#if currentUser}}
 
+             <form class="new-task">
+
+               <input type="text" name="text" placeholder="Type to add new tasks" />
+
+             </form>
+
+           {{/if}}
     </header>
 
 
@@ -54,7 +60,8 @@
 
 <template name="task">
 
- <li class="{{#if checked}}checked{{/if}}">
+
+    <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
 
    <button class="delete">&times;</button>
 
@@ -62,9 +69,28 @@
 
    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
 
+   {{#if isOwner}}
+
+     <button class="toggle-private">
+
+       {{#if private}}
+
+         Private
+
+       {{else}}
+
+         Public
+
+       {{/if}}
+
+     </button>
+
+   {{/if}}
 
 
-   <span class="text">{{text}}</span>
+
+
+      <span class="text"><strong>{{username}}</strong> - {{text}}</span>
 
  </li>
 
